@@ -31,7 +31,8 @@ int main() {
     int column = 1;
     int row = 1;
     int val = 0;
-    vector<int> puzzle;
+    int count = 0;
+    vector<int> puzzle(SIZE);
     cout << "\nNow, please enter" << endl;
     while (column <= n && row <= n) {
         cout << "Available options: ";
@@ -47,7 +48,10 @@ int main() {
             cout << "{ " << val << " } already exist or is not valid option\n" << "\tTry again: ";
         }
         
-        puzzle.push_back(val);
+        puzzle.at(count) = val;
+        cout << endl;
+        printVectorPuzzle(puzzle, n);
+        cout << endl << endl;
 
        
         column++;
@@ -55,6 +59,7 @@ int main() {
             row++;
             column = 1;
         }
+        count++;
     }
 
     cout << endl << "result:" << endl;
