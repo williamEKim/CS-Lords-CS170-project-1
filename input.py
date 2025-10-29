@@ -1,67 +1,86 @@
 from typing import List
 
 
-def print_int_array(arr: List[int]) -> None:
-    """Print non -1 values in a list."""
-    print(" ".join(str(x) for x in arr if x != -1), end=" ")
+class PuzzleInput:
+    """Handles user input and construction of an n x n puzzle grid. """
 
-def print_vector_puzzle(puzzle: List[List[int]]) -> None:
-    """Print the puzzle in grid form with formatted spacing."""
-    n = len(puzzle)
-    max_num = n * n - 1
-    width = len(str(max_num)) + 1  # +1 for padding
-    for row in puzzle:
-        print("".join(f"{val:>{width}}" for val in row))
-    print()
+    def __init__(self):
+        self.n = 0
+        self.puzzle: List[List[int]] = []
+        self.unused_nums: List[int] = []
 
-def check_val(unused_nums: List[int], val: int) -> bool:
-    """Return True if val is available and mark it as used (-1)."""
-    for i in range(len(unused_nums)):
-        if unused_nums[i] == val:
-            unused_nums[i] = -1
-            return True
-    return False
+    def print_int_list(self) -> None:
+        """Print available numbers (non -1)."""
+        print(" ".join(str(x) for x in self.unused_nums if x != -1), end=" ")
 
-def main():
-    print("Taking input for n x n puzzle.\n")
-    n = int(input("\tFirst, please enter the size of n: "))
+    def print_puzzle(self) -> None:
+        """Display puzzle as a formatted grid."""
+        if not self.puzzle:
+            print("(empty puzzle)")
+            return
 
-    print(f"\nTaking input for {n} x {n} puzzle.")
+        max_num = self.n * self.n - 1
+        width = len(str(max_num)) + 1  # For alignment
 
-    size = n * n
-    unused_nums = [i for i in range(size)]
-    print("\nUnused Numbers: { ", end="")
-    print_int_array(unused_nums)
-    print("}")
+        for row in self.puzzle:
+            print("".join(f"{val:>{width}}" for val in row))
+        print()
 
-    puzzle = [[0 for _ in range(n)] for _ in range(n)]
-    count = 0
+    def check_val(self, val: int) -> bool:
+        """Check if value is unused; mark as used (-1) if valid."""
+        for i in range(len(self.unused_nums)):
+            if self.unused_nums[i] == val:
+                self.unused_nums[i] = -1
+                return True
+        return False
 
-    print("\nNow, please enter:")
+    def take_input(self) -> None:
+        """Prompt user to enter puzzle size and fill it interactively."""
+        print("Taking input for n x n puzzle.\n")
+        self.n = int(input("\tFirst, please enter the size of n: "))
 
-    for row in range(n):
-        for col in range(n):
-            print("Available options: ", end="")
-            print_int_array(unused_nums)
-            print()
+        print(f"\nTaking input for {self.n} x {self.n} puzzle.")
+        size = self.n * self.n
+        self.unused_nums = [i for i in range(size)]
 
-            while True:
-                try:
-                    val = int(input(f"\trow: [{row + 1}], column: [{col + 1}] : "))
-                    if check_val(unused_nums, val):
-                        break
-                    else:
-                        print(f"{{ {val} }} already exists or is not valid option\n\tTry again: ", end="")
-                except ValueError:
-                    print("\tInvalid input, please enter an integer.")
+        print("\nUnused Numbers: { ", end="")
+        self.print_int_list()
+        print("}")
 
-            puzzle[row][col] = val
-            print()
-            print_vector_puzzle(puzzle)
+        # initialize puzzle with zeros
+        self.puzzle = [[0 for _ in range(self.n)] for _ in range(self.n)]
 
-    print("\nResult:")
-    print_vector_puzzle(puzzle)
+        print("\nNow, please enter:")
+
+        for row in range(self.n):
+            for col in range(self.n):
+                print("Available options: ", end="")
+                self.print_int_list()
+                print()
+
+                while True:
+                    try:
+                        val = int(input(f"\trow: [{row + 1}], column: [{col + 1}] : "))
+                        if self.check_val(val):
+                            break
+                        else:
+                            print(f"{{ {val} }} already exists or is not a valid option.\n\tTry again: ", end="")
+                    except ValueError:
+                        print("\tInvalid input, please enter an integer.")
+
+                self.puzzle[row][col] = val
+                print()
+                self.print_puzzle()
+
+        print("\nResult:")
+        self.print_puzzle()
+
+    def get_puzzle(self) -> List[List[int]]:
+        """Return the 2D puzzle array."""
+        return self.puzzle
+
 
 # in case this is imported in other python file
 if __name__ == "__main__":
-    main()
+    builder = PuzzleInput()
+    builder.take_input()
