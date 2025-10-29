@@ -1,6 +1,6 @@
 # CS-Lords-CS170-project-1
 
-- [ ] input
+- [x] input
 - [ ] Uniform Cost Search
 - [ ] Misplaced Tile heuristic
 - [ ] Euclidean Distance heuristic
