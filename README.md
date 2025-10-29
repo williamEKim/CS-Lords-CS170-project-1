@@ -1,10 +1,10 @@
 # CS-Lords-CS170-project-1
 
-- [] input
-- [] Uniform Cost Search
-- [] Misplaced Tile heuristic
-- [] Euclidean Distance heuristic
+- [ ] input
+- [ ] Uniform Cost Search
+- [ ] Misplaced Tile heuristic
+- [ ] Euclidean Distance heuristic
 - Trace
-    - [] nodes expanded
-    - [] max queue size
-    - [] goal depth
+    - [ ] nodes expanded
+    - [ ] max queue size
+    - [ ] goal depth
