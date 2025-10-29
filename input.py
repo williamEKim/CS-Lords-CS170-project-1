@@ -8,6 +8,7 @@ class PuzzleInput:
         self.n = 0
         self.puzzle: List[List[int]] = []
         self.unused_nums: List[int] = []
+        self.goal_state: List[List[int]] = []
 
     def print_int_list(self) -> None:
         """Print available numbers (non -1)."""
@@ -26,6 +27,19 @@ class PuzzleInput:
             print("".join(f"{val:>{width}}" for val in row))
         print()
 
+    def print_goal_state(self) -> None:
+        """Display goal state."""
+        if not self.goal_state:
+            print("(goal state not defined)")
+            return
+
+        max_num = self.n * self.n - 1
+        width = len(str(max_num)) + 1  # For alignment
+
+        for row in self.goal_state:
+            print("".join(f"{val:>{width}}" for val in row))
+        print()
+
     def check_val(self, val: int) -> bool:
         """Check if value is unused; mark as used (-1) if valid."""
         for i in range(len(self.unused_nums)):
@@ -41,8 +55,17 @@ class PuzzleInput:
 
         print(f"\nTaking input for {self.n} x {self.n} puzzle.")
         size = self.n * self.n
-        self.unused_nums = [i for i in range(size)]
 
+        # define goal state according to n
+        self.goal_state = [[0 for _ in range(self.n)] for _ in range(self.n)]
+        count = 1
+        for row in range(self.n):
+            for col in range(self.n):
+                self.goal_state[row][col] = count
+                count += 1
+        self.goal_state[self.n - 1][self.n - 1] = 0
+
+        self.unused_nums = [i for i in range(size)]
         print("\nUnused Numbers: { ", end="")
         self.print_int_list()
         print("}")
@@ -74,6 +97,10 @@ class PuzzleInput:
 
         print("\nResult:")
         self.print_puzzle()
+
+        print("\nGoal:")
+        self.print_goal_state()
+        
 
     def get_puzzle(self) -> List[List[int]]:
         """Return the 2D puzzle array."""
