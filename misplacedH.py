@@ -2,7 +2,7 @@
 from typing import List
 
 def getMisplacedHuristic(curr: List[List[int]], goal: List[List[int]], n: int) -> int:
-    """param: [ curr: List[List[int]], goal: List[List[int]], n: int ]; output: huristicCount:int"""
+    """param: [List[List[int]], List[List[int]], int]; return: int"""
     huristicCount = 0
 
     for row in range(n):

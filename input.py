@@ -1,5 +1,6 @@
 from typing import List
 from misplacedH import getMisplacedHuristic
+from euclideanH import getEuclideanHuristic
 
 
 class PuzzleInput:
@@ -119,4 +120,7 @@ class PuzzleInput:
 if __name__ == "__main__":
     builder = PuzzleInput()
     builder.take_input()
-    print("misplaced huristics " + str(getMisplacedHuristic(builder.get_puzzle(), builder.get_goal(), builder.get_n())))
+    print("Misplaced huristics " + str(getMisplacedHuristic(builder.get_puzzle(), builder.get_goal(), builder.get_n())))
+    euclidean_dist = getEuclideanHuristic(builder.get_puzzle(), builder.get_goal(), builder.get_n())
+    euclidean_dist = round(euclidean_dist, 3)
+    print("Euclidean Huristic(rounded): " + str(euclidean_dist))
