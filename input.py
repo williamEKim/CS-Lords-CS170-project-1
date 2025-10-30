@@ -89,7 +89,7 @@ class PuzzleInput:
                         if self.check_val(val):
                             break
                         else:
-                            print(f"{{ {val} }} already exists or is not a valid option.\n\tTry again: ", end="")
+                            print(f"{{ {val} }} already exists or is not a valid option.\nTry again: ", end="")
                     except ValueError:
                         print("\tInvalid input, please enter an integer.")
 
