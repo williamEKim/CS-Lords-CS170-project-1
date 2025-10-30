@@ -2,8 +2,8 @@
 
 - [x] input
 - [ ] Uniform Cost Search
-- [ ] Misplaced Tile heuristic
-- [ ] Euclidean Distance heuristic
+- [x] Misplaced Tile heuristic
+- [x] Euclidean Distance heuristic
 - Trace
     - [ ] nodes expanded
     - [ ] max queue size
