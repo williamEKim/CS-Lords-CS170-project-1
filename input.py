@@ -1,4 +1,5 @@
 from typing import List
+from misplacedH import getMisplacedHuristic
 
 
 class PuzzleInput:
@@ -101,13 +102,21 @@ class PuzzleInput:
         print("\nGoal:")
         self.print_goal_state()
         
+    def get_n(self) -> int:
+        """Return n value of the puzzle."""
+        return self.n
 
     def get_puzzle(self) -> List[List[int]]:
-        """Return the 2D puzzle array."""
+        """Return the 2D puzzle list."""
         return self.puzzle
+
+    def get_goal(self) -> List[List[int]]:
+        """Return the 2D goal_state list."""
+        return self.goal_state
 
 
 # in case this is imported in other python file
 if __name__ == "__main__":
     builder = PuzzleInput()
     builder.take_input()
+    print("misplaced huristics " + str(getMisplacedHuristic(builder.get_puzzle(), builder.get_goal(), builder.get_n())))
