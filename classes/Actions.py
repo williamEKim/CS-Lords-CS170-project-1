@@ -24,7 +24,7 @@ class EightPuzzleActions:
         if col < self.n -1:
             actions.append("Down")
         if row > 0: 
-            actions.apeend("Left")  
+            actions.append("Left")  
         if row < self.n -1: 
             actions.append("Right") 
 
@@ -37,9 +37,6 @@ class EightPuzzleActions:
     
     def get_initial_state(self)-> List[List[int]]:
         return self.initial_state
-    
-    def is_goal_state(self, state) -> bool:
-        return state == self.goal_state
     
     def find_blank_poistion(self, state)-> Tuple[int,int]:
         for row in range(self.n):

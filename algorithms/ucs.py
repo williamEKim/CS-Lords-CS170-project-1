@@ -14,7 +14,7 @@ def uniformCostSearch(problem):
     num_nodes_expanded = 0 
     while priority_queue:    
         _, _, node = heapq.heappop(priority_queue)
-        if problem.is_goal_state(node.state):
+        if problem.goal_test(node.state):
             return node, num_nodes_expanded, max_queue
         num_nodes_expanded += 1
         for action in problem.actions(node.state):
