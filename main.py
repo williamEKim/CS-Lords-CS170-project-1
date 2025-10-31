@@ -1,7 +1,9 @@
 from typing import List
-from helpers.input import PuzzleInput
+from input_output.PuzzleInput import PuzzleInput
+from classes.Actions import EightPuzzleActions
 from helpers.misplacedH import getMisplacedHuristic
 from helpers.euclideanH import getEuclideanHuristic
+from algorithms.ucs import uniformCostSearch 
 
 builder = PuzzleInput()
 builder.take_input()
@@ -9,3 +11,9 @@ print("Misplaced huristics " + str(getMisplacedHuristic(builder.get_puzzle(), bu
 euclidean_dist = getEuclideanHuristic(builder.get_puzzle(), builder.get_goal(), builder.get_n())
 euclidean_dist = round(euclidean_dist, 3)
 print("Euclidean Huristic(rounded): " + str(euclidean_dist))
+domain = EightPuzzleActions(builder.get_puzzle(), builder.get_goal(), builder.get_n())
+goalNode, num_nodes_expanded, max_queue = uniformCostSearch(domain)
+print("Goal Node: ", goalNode.state)
+print("Path cost to goal: ", goalNode.g)
+print("Number of nodes expanded: ", num_nodes_expanded)
+print("Max queue size: ", max_queue) 

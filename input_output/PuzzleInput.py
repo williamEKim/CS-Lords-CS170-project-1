@@ -102,6 +102,9 @@ class PuzzleInput:
 
         print("\nGoal:")
         self.print_goal_state()
+
+    def is_goal_state(self, state) -> bool:
+        return state == self.goal_state
         
     def get_n(self) -> int:
         """Return n value of the puzzle."""
@@ -114,3 +117,11 @@ class PuzzleInput:
     def get_goal(self) -> List[List[int]]:
         """Return the 2D goal_state list."""
         return self.goal_state
+    
+    if __name__ == "__main__":
+        builder = PuzzleInput()
+        builder.take_input()
+        print("Misplaced huristics " + str(getMisplacedHuristic(builder.get_puzzle(), builder.get_goal(), builder.get_n())))
+        euclidean_dist = getEuclideanHuristic(builder.get_puzzle(), builder.get_goal(), builder.get_n())
+        euclidean_dist = round(euclidean_dist, 3)
+        print("Euclidean Huristic(rounded): " + str(euclidean_dist))
