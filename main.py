@@ -23,31 +23,43 @@ is_path_hidden: bool = False
 while True:
     # Flag to turn off path display
     try:
-        search_choice = int(input(f"\nEnter your choice of algorithm:\n\t1. Uniform Cost Search\n\t2. A* with the Misplaced Tile heuristic\n\t3. A* with the Euclidean distance heuristic\n\t4. Turn off path display (currently: {is_path_hidden})\n\t5. Quit\n\n--> "))
-        if not(search_choice == 1 or search_choice == 2 or search_choice == 3 or search_choice == 4 or search_choice == 5):
-            print("Please choose between option [1, 2, 3, 4]\n")
+        print("\nEnter your choice of algorithm:")
+        print("\t1. Uniform Cost Search")
+        print("\t2. A* with the Misplaced Tile heuristic")
+        print("\t3. A* with the Euclidean distance heuristic")
+        print(f"\t4. Turn off path display (currently: {is_path_hidden})")
+        print("\t5. Reset the Puzzle")
+        print("\t6. Quit")
+        search_choice = int(input(f"\n--> "))
+        if search_choice not in [1, 2, 3, 4, 5, 6]:
+            print("Please choose between option [1, 2, 3, 4, 5, 6]\n")
             continue
 
     except ValueError:
-        print(f"It is not an appropriate value. \nPlease choose between option [1, 2, 3]\n")
+        print(f"It is not an appropriate value. \nPlease choose between option [1, 2, 3, 4, 5, 6]\n")
 
     search: str = ""
-    if search_choice == 5:
+    if search_choice == 6:      # QUIT
         break
-    elif search_choice == 4:
+    elif search_choice == 5:    # RESET PUZZLE
+        builder.take_input()
+        start_state = builder.get_puzzle()
+        goal = builder.get_goal()
+        continue    # result the loop with new puzzle
+    elif search_choice == 4:    # TOGGLE DISPLAY
         try:
             is_path_hidden = bool(1 - is_path_hidden)
         except:
             print("ERR")
         print("Path Display Option Toggled")
         continue
-    elif search_choice == 1:
+    elif search_choice == 1:    # UCS
         result = uniform_cost_search(start_state, goal)
         search = "Uniform Cost Search"
-    elif search_choice == 2:
+    elif search_choice == 2:    # A* with misplaced huristic
         result = a_star_search(start_state, goal, "misplaced")
         search = "A Star Search with Misplaced Tile Huristic"
-    else:
+    else:                       # A* with euclidean huristic
         result = a_star_search(start_state, goal, "euclidean")
         search = "A Star Search with Euclidean Huristic"
 
