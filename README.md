@@ -3,9 +3,10 @@
 - [x] input
 - [x] Misplaced Tile heuristic
 - [x] Euclidean Distance heuristic
-- [ ] Uniform Cost Search
-- [ ] A* Search
+- [x] Uniform Cost Search
+- [x] A* Search
+- [ ] Merge Searches into One Class
 - Trace
-    - [ ] nodes expanded
-    - [ ] max queue size
-    - [ ] goal depth
+    - [x] nodes expanded
+    - [x] max queue size
+    - [x] goal depth
