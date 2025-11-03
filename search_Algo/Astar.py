@@ -63,7 +63,9 @@ def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic) -> Dict[st
     g_cost: Dict[State, int] = {start_state: 0}
     h_cost: Dict[State, float] = {start_state: h(start_state)}
 
-    parent = {start_state: (None, None)}
+    parent: Dict[State, tuple[Optional[State], Optional[str]]] = {
+        start_state: (None, None)
+    }
 
     nodes_expanded = 0
     max_queue_size = 1
