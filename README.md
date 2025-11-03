@@ -6,6 +6,8 @@
 - [x] Uniform Cost Search
 - [x] A* Search
 - [ ] Merge Searches into One Class
+- [ ] Create Report Document for submission
+- [ ] Update readme.md
 - Trace
     - [x] nodes expanded
     - [x] max queue size
