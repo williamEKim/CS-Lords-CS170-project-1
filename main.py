@@ -37,6 +37,7 @@ while True:
 
     except ValueError:
         print(f"It is not an appropriate value. \nPlease choose between option [1, 2, 3, 4, 5, 6]\n")
+        continue
 
     search: str = ""
     if search_choice == 6:      # QUIT
