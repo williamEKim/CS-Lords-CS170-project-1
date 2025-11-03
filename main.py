@@ -21,7 +21,7 @@ goal = builder.get_goal()
 while True:
     try:
         search_choice = int(input("\nEnter your choice of algorithm:\n\t1. Uniform Cost Search\n\t2. A* with the Misplaced Tile heuristic\n\t3. A* with the Euclidean distance heuristic\n\n--> "))
-        if search_choice is 1 or search_choice is 2 or search_choice is 3:
+        if search_choice == 1 or search_choice == 2 or search_choice == 3:
             break
         print("Please choose between option [1, 2, 3]\n")
         continue
@@ -29,24 +29,28 @@ while True:
         print(f"It is not an appropriate value. \nPlease choose between option [1, 2, 3]\n")
 
 
-if search_choice is 1:
+if search_choice == 1:
     result = uniform_cost_search(start_state, goal)
-elif search_choice is 2:
+elif search_choice == 2:
     result = a_star_search(start_state, goal, "misplaced")
 else:
     result = a_star_search(start_state, goal, "euclidean")
 
 
-if result["solved"]:
-    print("\n=== Uniform Cost Search Solution ===")
-    print(f"Cost (moves): {result['cost']}")
-    print(f"Goal depth:   {result['goal_depth']}")
-    print(f"Nodes expanded: {result['nodes_expanded']}")
-    print(f"Max queue size: {result['max_queue_size']}")
-    print("\nMoves:", " -> ".join(result["moves"]) or "(none)")
-    print("\nPath:")
-    for i, grid in enumerate(result["path"]):
-        print(f"\nStep {i}:")
-        print(grid_print(grid))
-else:
-    print("No solution found.")
+try:
+    if result["solved"]:
+        print("\n=== Uniform Cost Search Solution ===")
+        print(f"Cost (moves): {result['cost']}")
+        print(f"Goal depth:   {result['goal_depth']}")
+        print(f"Nodes expanded: {result['nodes_expanded']}")
+        print(f"Max queue size: {result['max_queue_size']}")
+        print("\nMoves:", " -> ".join(result["moves"]) or "(none)")
+        print("\nPath:")
+        for i, grid in enumerate(result["path"]):
+            print(f"\nStep {i}:")
+            print(grid_print(grid))
+    else:
+        print("No solution found.")
+
+except TypeError:
+    print(f"Type Error Occured: {result}")
