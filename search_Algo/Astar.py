@@ -73,7 +73,7 @@ def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic) -> Dict[st
 
     while prio_queue:
         max_queue_size = max(max_queue_size, len(prio_queue))
-        _, g, s = heapq.heappop(prio_queue) # not using f
+        _, g, s = heapq.heappop(prio_queue) # by python's lexicographical nature of Tuple, it will compare "f" for minheap pop
 
         if g != g_cost.get(s, float("inf")):
             continue
