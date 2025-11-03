@@ -72,6 +72,10 @@ def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic) -> Dict[st
     while prio_queue:
         max_queue_size = max(max_queue_size, len(prio_queue))
         _, g, s = heapq.heappop(prio_queue) # not using f
+
+        if g != g_cost.get(s, float("inf")):
+            continue
+        
         if s == goal_state:
             #reconstruct path
             moves: List[str] = []
