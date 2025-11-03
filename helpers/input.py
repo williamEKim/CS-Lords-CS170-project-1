@@ -53,7 +53,17 @@ class PuzzleInput:
     def take_input(self) -> None:
         """Prompt user to enter puzzle size and fill it interactively."""
         print("Taking input for n x n puzzle.\n")
-        self.n = int(input("\tFirst, please enter the size of n: "))
+        while True:
+            try:
+                self.n = int(input("\tFirst, please enter the size of n: "))
+                if self.n > 4:
+                    print("Please choose between [2, 3]\n")
+                    continue
+
+                break
+
+            except ValueError:
+                print(f"It is not an appropriate value. \nPlease choose between [2, 3]\n")
 
         print(f"\nTaking input for {self.n} x {self.n} puzzle.")
         size = self.n * self.n
