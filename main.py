@@ -89,6 +89,8 @@ while True:
 
         else:
             print("No solution found.")
+            print(f"Nodes expanded: {result['nodes_expanded']}")
+            print(f"Max queue size: {result['max_queue_size']}")
 
     except TypeError:
         print(f"Type Error Occured: {result}")
