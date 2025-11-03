@@ -53,7 +53,7 @@ def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic) -> Dict[st
     def h(state: State) -> float:
         grid = unflatten(state, n)
         if heuristic == "euclidean":
-            return getEuclideanHuristic(grid, goal_grid, n)
+            return round(getEuclideanHuristic(grid, goal_grid, n), 3)   # round up to 3 digits
         else:
             return getMisplacedHuristic(grid, goal_grid, n)
 
