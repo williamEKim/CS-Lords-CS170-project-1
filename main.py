@@ -45,6 +45,7 @@ while True:
         builder.take_input()
         start_state = builder.get_puzzle()
         goal = builder.get_goal()
+        continue    # result the loop with new puzzle
     elif search_choice == 4:    # TOGGLE DISPLAY
         try:
             is_path_hidden = bool(1 - is_path_hidden)
