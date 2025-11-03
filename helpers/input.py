@@ -52,23 +52,33 @@ class PuzzleInput:
 
     def take_input(self) -> None:
         """Prompt user to enter puzzle size and fill it interactively."""
-        print("Taking input for n x n puzzle.\n")
+        # print("Taking input for n x n puzzle.\n")
+        # while True:
+        #     try:
+        #         self.n = int(input("\tFirst, please enter the size of n: "))
+        #         if self.n > 4:
+        #             print("Please choose between [2, 3]\n")
+        #             continue
+
+        #         break
+
+        #     except ValueError:
+        #         print(f"It is not an appropriate value. \nPlease choose between [2, 3]\n")
+
+        self.n = 3      # make it by default 3
         while True:
             try:
-                self.n = int(input("\tFirst, please enter the size of n: "))
-                if self.n > 4:
-                    print("Please choose between [2, 3]\n")
+                option = int(input("Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle.\n--> "))
+                if not(option == 1 or option == 2):
+                    print("Please choose between [1, 2]\n")
                     continue
-
                 break
 
             except ValueError:
-                print(f"It is not an appropriate value. \nPlease choose between [2, 3]\n")
-
-        print(f"\nTaking input for {self.n} x {self.n} puzzle.")
-        size = self.n * self.n
-
+                print(f"It is not an appropriate value. \nPlease choose between [1, 2]\n")
+        
         # define goal state according to n
+        size = self.n * self.n
         self.goal_state = [[0 for _ in range(self.n)] for _ in range(self.n)]
         count = 1
         for row in range(self.n):
@@ -77,35 +87,52 @@ class PuzzleInput:
                 count += 1
         self.goal_state[self.n - 1][self.n - 1] = 0
 
-        self.unused_nums = [i for i in range(size)]
-        print("\nUnused Numbers: { ", end="")
-        self.print_int_list()
-        print("}")
-
         # initialize puzzle with zeros
         self.puzzle = [[0 for _ in range(self.n)] for _ in range(self.n)]
 
-        print("\nNow, please enter:")
+        # now, either generate default puzzle or get input depending on option
+        if option == 2:
+            print(f"\nTaking input for {self.n} x {self.n} puzzle.")
 
-        for row in range(self.n):
-            for col in range(self.n):
-                print("Available options: ", end="")
-                self.print_int_list()
-                print()
+            self.unused_nums = [i for i in range(size)]
+            print("\nUnused Numbers: { ", end="")
+            self.print_int_list()
+            print("}")
 
-                while True:
-                    try:
-                        val = int(input(f"\trow: [{row + 1}], column: [{col + 1}] : "))
-                        if self.check_val(val):
-                            break
-                        else:
-                            print(f"{{ {val} }} already exists or is not a valid option.\nTry again: ", end="")
-                    except ValueError:
-                        print("\tInvalid input, please enter an integer.")
+            print("\nNow, please enter:")
 
-                self.puzzle[row][col] = val
-                print()
-                self.print_puzzle()
+            for row in range(self.n):
+                for col in range(self.n):
+                    print("Available options: ", end="")
+                    self.print_int_list()
+                    print()
+
+                    while True:
+                        try:
+                            val = int(input(f"\trow: [{row + 1}], column: [{col + 1}] : "))
+                            if self.check_val(val):
+                                break
+                            else:
+                                print(f"{{ {val} }} already exists or is not a valid option.\nTry again: ", end="")
+                        except ValueError:
+                            print("\tInvalid input, please enter an integer.")
+
+                    self.puzzle[row][col] = val
+                    print()
+                    self.print_puzzle()
+
+        elif option==1: #use default puzzle
+            self.puzzle[0][0] = 1
+            self.puzzle[0][1] = 3
+            self.puzzle[0][2] = 6
+
+            self.puzzle[1][0] = 5
+            self.puzzle[1][1] = 0
+            self.puzzle[1][2] = 2
+
+            self.puzzle[2][0] = 4
+            self.puzzle[2][1] = 7
+            self.puzzle[2][2] = 8
 
         print("\nResult:")
         self.print_puzzle()
