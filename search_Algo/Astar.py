@@ -29,7 +29,7 @@ def neighbors(state: State, n: int) -> List[tuple[str, State]]:
         curr_state[i], curr_state[j] = curr_state[j], curr_state[i]
         return tuple(curr_state)
 
-    #up so swap with tile aboce
+    #up so swap with tile above
     if row > 0:
         res.append(("Up", swap(idx, idx - n)))
     #down
