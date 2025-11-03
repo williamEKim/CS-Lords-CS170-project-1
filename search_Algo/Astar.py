@@ -1,7 +1,7 @@
-from typing import List, Tuple, Dict, Optional
-import heapq
 from helpers.misplacedH import getMisplacedHuristic
 from helpers.euclideanH import getEuclideanHuristic 
+from typing import List, Tuple, Dict, Optional
+import heapq
 
 Grid = List[List[int]]
 State = Tuple[int, ...]  #flattens grid
@@ -44,12 +44,12 @@ def neighbors(state: State, n: int) -> List[tuple[str, State]]:
     return res
 
 
-def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic="euclidean") -> Dict[str, object]:
+def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic) -> Dict[str, object]:
     n = len(start_state_grid)
     start_state = flatten(start_state_grid)
     goal_state = flatten(goal_grid)
 
-    # depending on choice of huristic, set the huristic algorithm (by default euclidean)
+    # depending on choice of huristic, set the huristic algorithm (by default misplaced tile)
     def h(state: State) -> float:
         grid = unflatten(state, n)
         if heuristic == "euclidean":
@@ -63,8 +63,7 @@ def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic="euclidean"
     g_cost: Dict[State, int] = {start_state: 0}
     h_cost: Dict[State, float] = {start_state: h(start_state)}
 
-    # parent = {start_state: (None, None)}
-    parent: Dict[State, Tuple[Optional[State], Optional[str]]] = {start_state: (None, None)}
+    parent = {start_state: (None, None)}
 
     nodes_expanded = 0
     max_queue_size = 1
@@ -77,16 +76,13 @@ def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic="euclidean"
             #reconstruct path
             moves: List[str] = []
             states: List[State] = []
-            costs: List[Tuple[int, float]] = []  # list of (g, h)
+            h_values: List[float] = []  # list of (g, h)
 
             cur = s
             while cur is not None:
                 states.append(cur)
                 # Append g and h for this state
-                costs.append({
-                    "g_value": g_cost[cur],
-                    "h_value": h_cost.get(cur, 0.0)
-                })
+                h_values.append(h_cost.get(cur, 0.0))
 
                 p, mv = parent[cur]
                 if mv is not None:
@@ -96,14 +92,14 @@ def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic="euclidean"
             # reverse to match the order of path
             states.reverse()
             moves.reverse()
-            costs.reverse()
+            h_values.reverse()
             path_grids = [unflatten(st, n) for st in states]
 
             return {
                 "path": path_grids,
                 "moves": moves,
                 "cost": g,
-                "costs": costs,
+                "h_values": h_values,
                 "nodes_expanded": nodes_expanded,
                 "max_queue_size": max_queue_size,
                 "goal_depth": g,
@@ -127,7 +123,7 @@ def a_star_search(start_state_grid: Grid, goal_grid: Grid, heuristic="euclidean"
     return {
             "path": [],
             "moves": [],
-            "costs": [],
+            "h_values": [],
             "cost": 0,
             "nodes_expanded": nodes_expanded,
             "max_queue_size": max_queue_size,
