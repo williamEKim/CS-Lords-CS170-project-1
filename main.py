@@ -73,7 +73,6 @@ while True:
 
     # Calculate elapsed time
     elapsed_time = end_time - start_time
-    print(f"\nTime taken for {search}: {elapsed_time:.4f} seconds")
 
     try:
         if result["solved"]:
@@ -95,71 +94,19 @@ while True:
             print(f"Goal depth:   {result['goal_depth']}")
             print(f"Nodes expanded: {result['nodes_expanded']}")
             print(f"Max queue size: {result['max_queue_size']}")
+            print(f"Time: {elapsed_time:.4f} seconds")
             print("\nMoves:", " -> ".join(result["moves"]) or "(none)")
 
         else:
             print("No solution found.")
             print(f"Nodes expanded: {result['nodes_expanded']}")
             print(f"Max queue size: {result['max_queue_size']}")
+            print(f"Time: {elapsed_time:.4f} seconds")
+        
+        
 
     except TypeError:
         print(f"Type Error Occured: {result}")
     except ValueError:
         print(f"It is not an appropriate value. \nPlease choose between option [1, 2, 3, 4, 5, 6]\n")
         continue
-
-    search: str = ""
-    if search_choice == 6:      # QUIT
-        break
-    elif search_choice == 5:    # RESET PUZZLE
-        builder.take_input()
-        start_state = builder.get_puzzle()
-        goal = builder.get_goal()
-        continue    # result the loop with new puzzle
-    elif search_choice == 4:    # TOGGLE DISPLAY
-        try:
-            is_path_hidden = bool(1 - is_path_hidden)
-        except:
-            print("ERR")
-        print("Path Display Option Toggled")
-        continue
-    elif search_choice == 1:    # UCS
-        result = uniform_cost_search(start_state, goal)
-        search = "Uniform Cost Search"
-    elif search_choice == 2:    # A* with misplaced huristic
-        result = a_star_search(start_state, goal, "misplaced")
-        search = "A Star Search with Misplaced Tile Huristic"
-    else:                       # A* with euclidean huristic
-        result = a_star_search(start_state, goal, "euclidean")
-        search = "A Star Search with Euclidean Huristic"
-
-
-    try:
-        if result["solved"]:
-            if search_choice == 1 and not is_path_hidden:  # UCS
-                for i, grid in enumerate(result["path"]):
-                    print(f"\nStep {i}, with g(n) = {i}:")
-                    print(grid_print(grid))
-
-            elif not is_path_hidden:  # A* (misplaced or Euclidean)
-                g_val = 0
-                h_val = 0
-                for i, (grid, h_value) in enumerate(zip(result["path"], result["h_values"])):
-                    print(f"\nStep {i}, with g(n) = {i} and h(n) = {h_value}:")
-                    print(grid_print(grid))
-
-                
-            print(f"\n=== {search} Solution ===")
-            print(f"Cost (moves): {result['cost']}")
-            print(f"Goal depth:   {result['goal_depth']}")
-            print(f"Nodes expanded: {result['nodes_expanded']}")
-            print(f"Max queue size: {result['max_queue_size']}")
-            print("\nMoves:", " -> ".join(result["moves"]) or "(none)")
-
-        else:
-            print("No solution found.")
-            print(f"Nodes expanded: {result['nodes_expanded']}")
-            print(f"Max queue size: {result['max_queue_size']}")
-
-    except TypeError:
-        print(f"Type Error Occured: {result}")
